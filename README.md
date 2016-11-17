@@ -11,3 +11,6 @@ Dependencias
 * MySQL-python == 1.2.5
 * mysqlclient == 1.3.9
 * siplejson == 3.10.0
+
+
+![Tela](https://github.com/SistemasUCL/oliveira-oliveira/blob/master/Documenta%C3%A7%C3%A3o%20auxiliar/tela.png?raw=true)
