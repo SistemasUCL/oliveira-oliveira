@@ -20,7 +20,7 @@ def gerajson(request):
 
     periodo = DimPeriodo.objects.all().values_list('ano',flat=True)
     professor = DimProfessor.objects.filter(iddim_professor__in=FatoDesempenhoaluno.objects.all().values(
-        'dim_professor_iddim_professor')).order_by('nome')
+        'dim_professor_iddim_professor')).order_by('nome_pessoa')
     disciplina = DimDisciplina.objects.filter(iddim_disciplina__in=FatoDesempenhoaluno.objects.all().values(
         'dim_disciplina_iddim_disciplina')).order_by('nome')
     turma = DimTurmadeingresso.objects.filter(iddim_turmadeingresso__in=FatoDesempenhoaluno.objects.all().values(
@@ -32,7 +32,8 @@ def gerajson(request):
     if request.POST:
         notaset = FatoDesempenhoaluno.objects.filter(dim_turmadeingresso_iddim_turmadeingresso=request.POST.get(
             'turma')).values_list('media_n1', 'media_n2', 'media_n3').distinct().filter(dim_disciplina_iddim_disciplina=request.POST.get(
-            'disciplina')).values_list('media_n1', 'media_n2', 'media_n3').distinct()
+            'disciplina')).values_list('media_n1', 'media_n2', 'media_n3').distinct().filter(dim_professor_iddim_professor=request.POST.get(
+            'professor')).values_list('media_n1', 'media_n2', 'media_n3').distinct()
         if len(notaset) > 0:
             nota = notaset
 
@@ -41,7 +42,8 @@ def gerajson(request):
     if request.POST:
         faltaset = FatoAbsenteismo.objects.filter(dim_turmadeingresso_iddim_turmadeingresso=request.POST.get(
             'turma')).values_list('falta').distinct().filter(dim_disciplina_iddim_disciplina=request.POST.get(
-            'disciplina')).values_list('falta').distinct()
+            'disciplina')).values_list('falta').distinct().filter(dim_professor_iddim_professor=request.POST.get(
+            'professor')).values_list('qtd_falta').distinct()
         if len(faltaset) > 0:
             falta = faltaset
 
